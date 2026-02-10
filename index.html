@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Driftline Studio</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
+
+      :root {
+        --ink: #1a1a1a;
+        --paper: #f7f2eb;
+        --accent: #ff6b3d;
+        --accent-2: #1f7a8c;
+        --shadow: rgba(0, 0, 0, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        background: radial-gradient(circle at 20% 20%, #fff7ef 0%, var(--paper) 45%, #f1efe8 100%);
+        min-height: 100vh;
+      }
+
+      .noise {
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+        pointer-events: none;
+        mix-blend-mode: multiply;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 6vw;
+      }
+
+      header .logo {
+        font-family: "Fraunces", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      nav {
+        display: flex;
+        gap: 18px;
+        font-size: 0.95rem;
+      }
+
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        position: relative;
+      }
+
+      nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: width 0.2s ease;
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 40px;
+        align-items: center;
+        padding: 40px 6vw 70px;
+      }
+
+      .hero h1 {
+        font-family: "Fraunces", serif;
+        font-size: clamp(2.4rem, 3vw + 1.6rem, 4rem);
+        margin: 0 0 16px;
+        line-height: 1.1;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin: 0 0 24px;
+        color: #333;
+      }
+
+      .hero .cta {
+        display: inline-flex;
+        gap: 12px;
+      }
+
+      .button {
+        padding: 12px 20px;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .button.secondary {
+        background: transparent;
+        color: var(--ink);
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px var(--shadow);
+      }
+
+      .hero-card {
+        background: #fff;
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        position: relative;
+        overflow: hidden;
+        min-height: 260px;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        inset: -40% -20% auto auto;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 107, 61, 0.3), transparent 70%);
+      }
+
+      .hero-card h2 {
+        font-family: "Fraunces", serif;
+        margin: 0 0 8px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #fef1ea;
+        color: #b84c2a;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 0 6vw 80px;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 20px;
+        border: 1px solid #eee;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 30px var(--shadow);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+      }
+
+      .card p {
+        margin: 0;
+        color: #444;
+        font-size: 0.95rem;
+      }
+
+      footer {
+        padding: 30px 6vw 50px;
+        border-top: 1px solid #e6e0d8;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      @media (max-width: 700px) {
+        nav {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header>
+      <div class="logo">Driftline Studio</div>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="pill">New - Spring 2026 sessions open</div>
+          <h1>Simple websites that feel crafted, not canned.</h1>
+          <p>
+            Driftline Studio builds lean, expressive websites for small teams that need
+            clarity, speed, and a distinct voice. No templates. No fluff.
+          </p>
+          <div class="cta">
+            <a class="button" href="#contact">Start a project</a>
+            <a class="button secondary" href="#work">See recent work</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h2>What you get</h2>
+          <p>Design direction, copy polish, and a responsive build in two weeks.</p>
+          <ul>
+            <li>1:1 kickoff + brand notes</li>
+            <li>Two design rounds</li>
+            <li>Launch-ready handoff</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="work" class="grid">
+        <article class="card">
+          <h3>Signal Ridge</h3>
+          <p>Landing page + design system for a climate data startup.</p>
+        </article>
+        <article class="card">
+          <h3>Juniper Press</h3>
+          <p>Editorial redesign for a boutique publishing house.</p>
+        </article>
+        <article class="card">
+          <h3>Northgate Café</h3>
+          <p>Mobile-first menu and story site for a local restaurant.</p>
+        </article>
+      </section>
+
+      <section id="process" class="grid">
+        <article class="card">
+          <h3>Define</h3>
+          <p>We align on goals, constraints, and a clear narrative.</p>
+        </article>
+        <article class="card">
+          <h3>Design</h3>
+          <p>Two sharp directions with focused iterations.</p>
+        </article>
+        <article class="card">
+          <h3>Deliver</h3>
+          <p>Responsive build with a simple handoff you can own.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div>Say hello: hello@driftline.studio</div>
+      <div>Based in Seattle. Working worldwide.</div>
+    </footer>
+  </body>
+</html>
